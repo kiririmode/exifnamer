@@ -1,0 +1,12 @@
+.*
+!.gitignore
+vendor/
+dist/
+flycheck*
+TODO
+*.test
+exifnamer
+\#*
+coverage.out
+extractor
+exifreader

@@ -1,0 +1,17 @@
+# -*- mode: shell-script -*-
+#!/bin/bash
+
+set -e
+
+echo current version: $(gobump show -r)
+read -p "input next version: " version
+
+gobump set $version -w
+
+git add version.go
+git commit -m "Checking in changes prior to tagging of version v$version"
+git tag v$version
+git push && git push --tags
+
+make crossbuild
+ghr v$version dist/$version
