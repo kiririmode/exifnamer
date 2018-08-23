@@ -58,7 +58,7 @@ func TestDateTimeExtractor_Extract_fail(t *testing.T) {
 func loadExif(path string) (*exif.Exif, error) {
 	f, err := os.Open(path)
 	if err != nil {
-		fmt.Errorf("error should be nil but: %s", err)
+		return nil, fmt.Errorf("error should be nil but: %s", err)
 	}
 	defer f.Close()
 

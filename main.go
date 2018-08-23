@@ -47,6 +47,7 @@ func main() {
 
 	renamer := &CopyRenamer{}
 	extractor := &DateTimeExtractor{}
+	// TODO: OriginalFileLocator should be replaced with FixedLocator
 	var locator Locator = &OriginalFileLocator{}
 
 	// targetDir is specified, all files should be located in that directory.

@@ -9,7 +9,7 @@ import (
 	"go4.org/media/heif"
 )
 
-// Exif Reader reads EXIF from a file described by path.
+// ExifReader reads EXIF from a file described by path.
 type ExifReader interface {
 	Read(path string) (*exif.Exif, error)
 }
