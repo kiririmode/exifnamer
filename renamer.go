@@ -73,12 +73,34 @@ func (c *CopyRenamer) Rename(origPath string, locator Locator, extractor Extract
 	if err != nil {
 		return err
 	}
+	// newPath already exists?
+	if _, err = os.Stat(newPath); err == nil {
+		newPath, err = uniqPath(newPath)
+		if err != nil {
+			return err
+		}
+	}
 	log.Printf("%s --> %s\n", origPath, newPath)
 
 	if dryRun {
 		return nil
 	}
 	return os.Link(origPath, newPath)
+}
+
+func uniqPath(path string) (string, error) {
+
+	dir := filepath.Dir(path)
+	ext := filepath.Ext(path)
+	base := filepath.Base(path[:len(path)-len(ext)])
+
+	for i := 0; i < 1000; i++ {
+		path = filepath.Join(dir, fmt.Sprintf("%s_%03d%s", base, i, ext))
+		if _, err := os.Stat(path); os.IsNotExist(err) {
+			return path, nil
+		}
+	}
+	return "", fmt.Errorf("There are too many files which has same suffix: %s", base)
 }
 
 // createRenamedFilePath creates and returns new file path as a string.
