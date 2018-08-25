@@ -14,4 +14,4 @@ git tag v$version
 git push && git push --tags
 
 make crossbuild
-ghr v$version dist/$version
+ghr v$version dist/v$version
